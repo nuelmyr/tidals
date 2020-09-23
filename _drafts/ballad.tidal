@@ -1,0 +1,14 @@
+setcps (80/120)
+
+-- midiclock
+p "midiclock" $ midicmd "midiClock*48" # s "midi" # nudge 0.17
+
+p "midictl" $ midicmd "start/4" # s "midi" # nudge 0.17
+
+p "midictl" $ silence
+
+-- basses
+
+d1 $ slow 8 $ append ( n "[c3]*8  as2*8 g2*8 gs2*8 as2*8") # s "supersaw" # gain 0
+
+hush

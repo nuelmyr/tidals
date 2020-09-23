@@ -1,0 +1,17 @@
+setcps (120/120)
+
+
+d16 $ s "[md*2]" # gain 1.4
+
+d15 $ s"[~ md:1]"
+
+d14 $ s "[~ md:2]*2]"
+
+d13 $ s "[chink](3,8)"
+
+
+
+
+d9 $ loopAt 8 $ s "mclas" # gain 1
+
+hush

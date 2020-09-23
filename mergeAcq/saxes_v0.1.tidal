@@ -1,0 +1,35 @@
+sock <- carabiner tidal 2 (2) -- 100bpm
+
+
+
+-- rir 112bpm inspired by HAIKO KURT - saxofone sample from SAX PLANET by DREAM SYNTH under cc
+-- go intro
+xfade 1
+$ qtrigger 1 
+$ slow "12" 
+$ off 0.25 (hurry "[0.5 0.4]/4") 
+-- $ hurry "0.7 0.4 0.6 0.5"  
+$ slice  "8" "[[8 0 0 ] 7 .. 1]*2"  
+$ s "[rir]" 
+# legato 8 
+-- # squiz (range 0 0.3 $ slow 16 tri) # comb (range 0.5 1 $ slow rand sine) # delay 0.7 # delaytime "<e h>"  # delayfeedback 0.5 # hpf 444 
+# gain (range 0 0.9 $ cF 1 "24") # orbit 0 # cps (100/120)
+
+  
+d2 $ slow 2 $ s "[z~~z~~z z]" # cut 1 # amp (range 0 1 $ cF 1 "12") # gain "0.8 1!5 0.9 1" # cps (100/120)
+
+d3 $ every 4 rev $ struct ("0 1 0 0  0 1 0 0")$ sound "rol:3" # legato 0.9  # amp (range 0 1 $ cF 1 "11") # gain "1" # cps (100/120)
+
+d4 $ s "[rir:2]"  # lpf 333 # amp (range 0 1 $ cF 1 "14")# gain 0.9 # cps (100/120)
+
+d5 $ slow 2 $ note "[~ f ]" # legato 1 # s "[mgg]" # amp (range 0 1 $ cF 1 "15")# gain 0.9 # cps (100/120)
+
+--1sax 2kick 3 snare 4bass 5onepluck
+mutelist = mapM_ mute
+mutelist [1,2,3,4,5]
+unmutelist = mapM_ unmute
+unmutelist [1,2,3,4,5]
+
+
+
+

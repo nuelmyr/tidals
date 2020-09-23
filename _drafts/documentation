@@ -1,0 +1,72 @@
+$ stut 2 0.5 0.5
+--------------------------------------
+$ chunk 4 (hurry 2 / slow 2 oder # lpf oder # speed oder ...) $ sound
+chunk divides
+--------------------------------------
+# lpf (range 100 1111 $ slow 16 $ saw) 
+--------------------------------------
+# sz 0.5 # room 0.9
+--------------------------------------
+d1 $ slow 32 $ jux (rev) $ sound
+The jux function creates strange stereo effects,
+by applying a function to a pattern, but only in the right-hand channel.
+For example, the following reverses the pattern on the righthand side:
+--------------------------------------
+legato 1
+--------------------------------------
+d1 $ loopAt 8 $ chop 32 $ sound
+You can also use chop with very long samples, to cut it into short chunks and pattern those chunks.
+The following cuts a sample into 32 parts, and plays it over 8 cycles:
+--------------------------------------
+d1 $ palindrome $ sound
+palindrome applies rev to a pattern every other cycle, so that the pattern alternates between forwards and backwards.
+--------------------------------------
+d1 $ slow 32 $ jux (rev) $
+Stereo Effekte
+--------------------------------------
+d1 $ stack [
+  sound "bd bd*2",
+  sound "hh*2 [sn cp] cp future*4",
+  sound (samples "arpy*8" (run 16))
+]
+für Effekte auf dem ganzen Pattern
+--------------------------------------
+d1 $ off 0.125 (# crush 2) $ sound
+off applies a function to a pattern, and layers up the results on top of the original pattern.
+The difference is that off takes an extra pattern being a time (in cycles) to shift the transformed version of the pattern by.
+--------------------------------------
+d1 $ sound (samples "hc*8" (iter 4 $ run 4))
+anticipate 1 $ sound (samples "bd(3,8)" (run 3))
+= Fading von einem zum anderen Pattern
+--------------------------------------
+
+# attack 0.2
+# release 0.5
+# speed 1
+# lpf "999"
+
+sounds
+
+dist (drumsloops distorted)
+feelfx (drumsounds drastic)
+foo (oldschool hiphop)
+pad (scifi sounds)
+mvox (astronaut, apocalypse)
+mfx (drone, metaphysics)
+ds (dubstep material)
+
+synths----------------------------------------------------------------------
+
+Superhex - spooky
+Superreese - ambient
+
+$ note "c c d ~ f ~ f ds" # s "Supersaw*8"
+# gain 0.8
+
+
+
+
+
+folder samples C:\Users\linuxx\AppData\Local\SuperCollider\downloaded-quarks\Dirt-Samples\
+
+include("SuperDirt");

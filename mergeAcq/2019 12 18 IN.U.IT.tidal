@@ -1,0 +1,92 @@
+sock <- carabiner tidal 4 (2.6) -- 80bpm
+
+d1 $ stack [ -- controls 12 maultrommel 11 female 24 perc
+--- maultrommel warped
+fast 1  $ gap "1" $ layer [id, slow 1] $ s "[~inu:5](4,8)" # begin 0 # end "[0.1!7 1]" # up "[0]" # hpf (range 1 1111 $ cF 1 "29") # room 0.4 # sz "0.5!7 0.5" # orbit 2 # gain (range 0  0.7 $ cF 1 "12"),
+-- female inu.it 
+slow 4 $ stut 4 0 0  $ off "0.25" (# distort "0.2") $ layer [id, slow 1, (# up 3)]  $ s "[[inu:6]!4]" # begin 0 # end 0.4  # lpf (range 444  2222 $ cF 1 "29") # up "[0.4]"# speed 0.5 # unit "c" # gain (range 0  1 $ cF 1 "11"),  
+slow 1  $ chop 4 $ struct "1" $ s "[[inu:6]]" # begin 0.5 # end 1  # lpf (range 444  2222 $ cF 1 "29") # up "[0.4]"# speed 1 # gain (range 0  0 $ cF 1 "11"),  
+-- abwechseln alle 4 Takte ein anderes Pattern 
+-- perc
+slow 4 $ jux (rev) $ palindrome $ slice 8 "[0 2  ~3 4 ~0  1 ~5 6 ~1 5~]/4" $ s "[inu:8]" # hpf 444 # room 0.5 # sz 0.5 # orbit 1 # delay 0.5 # gain (range 0  0.8 $ cF 1 "24") 
+] # cps (80/120)
+
+
+----------------Strophe in b/gis
+-- To dissimulate not to have what one has 
+-- To recreate to fake not to have 
+-- suggests a nearness a nonappearance 
+
+---------------Strophe in b/gis
+-- increasingly entangled to create 
+-- Somebody who fakes essentially 
+-- imagine he is sick to reproduce ... only disease  
+
+-- Refrain in f
+-- No space for the dream
+-- No space for the dream (letzter Ton is bereits wieder b)
+
+----------der komplette Text zum neu Bearbeiten
+-- No space for the dream
+
+-- To dissimulate not to have what one has 
+-- To recreate to fake not to have 
+-- suggests a nearness 
+-- a nonappearance 
+
+-- increasingly entangled to recreate 
+-- Somebody who fakes essentially 
+-- imagine he is sick 
+-- to reproduce only delivers disease  
+
+-- pretending standards 
+-- dissimulate leaves this truth 
+-- standard flawless is just conceal 
+-- undermines the distinction 
+-- "genuine" "false" side effects 
+
+-- The test system can't be dealt 
+-- equitably undiscoverable truth 
+-- the evil impacts may continue trying 
+-- different things with these evil impacts
+-- do with treatment leaves them 
+-- no space for the dream
+
+----------------------drum bumm-chak mit filter
+d3 $ "[[z*4], [~z:3]*4, [z:1]*2]" # legato 0.4 # cut 1 # orbit 3 # gain 0.8 # cps (80/120) # lpf (range 333 2222 $ cF 1 "29" ) # resonance (range 0 0.3 $ cF 1 "29" ) # distort (range 0 0.1 $ cF 1 "29" )
+
+--click-----------------------------------------------------
+d11 $ n " c6 c4 c4 c4" # "supergong" # gain " 1 0.8!3" 
+
+-- hausaufgaben
+do
+  xfade 1
+-- inut female part 1
+    $ slow 1 
+    $ struct "[1 1 0 0  0 0 0 0]/4"
+    $ s "[[inu:6]]" 
+    # begin 0.5 # end 1 
+    # legato 8
+    # lpf (range 444  2222 $ cF 1 "29") # hpf 555
+    # accelerate 0 # up "[0.4]"# speed 1 
+    # gain (range 0  1 $ cF 1 "11") # cps (80/120)
+-- inut female part 2
+  xfade 2 
+    $  slow 1
+    $ struct "[ 0 0 0 0  1 0 0 0]/4"
+    $ off 1 (# speed 1)
+    $ s "[inu:6]" 
+    # begin 0 # end 0.6
+    # speed 0.8 # hpf 555 -- # delay 0.5 # delaytime 0.4
+    # lpf (range 444  2222 $ cF 1 "29") 
+    # gain (range 0  1 $ cF 1 "11") # cps (80/120)
+    -- maultrommel warped
+  d3    
+      $ fast 1  $ gap "1" $ layer [id, slow 1] $ s "[~inu:5](4,8)" # begin 0 # end "[0.1!7 1]" # up "[0]" # hpf (range 1 1111 $ cF 1 "29") # lpf 666 # room 0.4 # sz "0.5!7 0.5" # orbit 2 # gain (range 0  0.7 $ cF 1 "12")
+  d4 
+      $ slow 1 $ s "[[z*2], [~ 808:1], [~z:3]]" 
+      # legato 1 # orbit 3 # gain 0.8 # cps (80/120) # pan rand
+  d5 
+    $ slow 8 $ n "[[~as]!12 [~gs]!2 [~g]!2]" # s "supersaw" # octave 2 # sustain 0.3 # gain 0    
+
+

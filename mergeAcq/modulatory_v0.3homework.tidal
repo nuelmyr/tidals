@@ -1,0 +1,71 @@
+-- modulatory_v0.1
+
+-- bernd macht eine wave mit 6 Tönen auf Micro-Freak
+-- 4 Teile, die aufeinander aufbauen Drum + Bass bleiben ähnlich, wir haben 1 Arpeggio, 1 Klassik Sample. es fehlen zwei weitere kompatible Ideen 
+
+-- MM-> fehlt noch ein gebrochenes Arpeggio mit hohem Moog
+
+sock <- carabiner tidal 2 (2) -- 100bpm
+
+-----------------------------song struct---------------------------------------------------
+0 tc mody beep+klick C12
+--1 dt sample beep
+--2 dt git
+--3 dt marimba 
+4 tc bass intro
+--5 dt snare
+--6 dt accorde tc beep+klick off
+7 dt+tc drum / bass main
+
+----------------------------mody beep CONTROL 36 detune
+xfade 3 $ slow 1 $ every 6 rev $ struct ( "1 0 0 1  0 1 0 1  0 0 0 1  0 1 0 0 ") $ "mody?0.33" # note "30" # speed (range 1 1.1 $ cF 1 "36")# begin 0.07 # end "[1 0.5 0 0.08](5,16)" # delay 0.5 # delayt "t"  # delayfb 0.7 # djf (range 0 0.5 $ cF 1 "24" ) # orbit 3 # gain 0.6 # cps (100/120)
+
+--------------------------------mody klick CONTROL 24 djf
+xfade 3 $ slow 2 $ chop 1 $ struct ( inv "1 0 0 1  0 1 0 1  0 0 0 1  0 1 0 0 ") $ "mody" # note "[3 .. 7]/12" # begin 0 # end 1 # speed "0.5 0.7" # legato "4 16 8 1" # hpf 333 # djf (range 0.5 0.75 $ cF 1 "24" ) # delay 0.5 # delayt "h"  # delayfb 0.7 # orbit 2 # pan rand # gain 0.6 # cps (100/120)
+
+------------------- bass CONTROLS 31 djf / 33 shape
+-- bass intro
+d1 $ slow 4 
+                $ struct ("1 0 0 0 0 0  0 0 0 0 0 0  0 0 0 0 1 0  1 0 1 0 1 0") -- 1/8 triolen
+                $ s "mgg" 
+                # note "[c1!6 c2!6 c2!3 c1!3 as1!3 b1!3 ]"
+                # legato "[14!6 1!6 1!6 1!3 1!3 ]"
+                # octave 8
+                # hpf 11
+                # djf (range 0.3 0.70 $ cF 1 "31")
+                # shape (range 0.3 0.7 $ cF 1 "33")
+                # gain (range 0  1 $ cF 1 "11" ) # cps (100/120)
+
+d2 $ slow 1 $ s "[z95/2 ]?0.11" # speed (100/95) # gain 1 # legato "<1>"# djf (range 0.68 0.79 $ slow 23 square) # orbit 1 # room 0.2 # sz 0.2 # orbit 1 # cps (100/120)
+
+xfadeIn 2 8 silence
+                
+-- bass main
+d1 $ slow 4 
+  $ every 4 (off "t" (# djf 0.75))
+  $ struct ("1 0 0 0 1 0  1 0 0 0 1 0  1 0 0 0 1 0  1 0 1 0 1 0") -- 1/8 triolen
+  $ s "mgg?0.09" 
+  # note "[c1!6 c2!6 c2!3 c1!3 as1!3 b1!3 ]"
+  # legato "[14!6 1!6 1!6 1!3 1!3 ]"
+  # octave 8
+  # hpf 11
+  # djf (range 0.3 0.70 $ cF 1 "31")
+  # shape (range 0.3 0.7 $ cF 1 "33")
+  # gain (range 0  1 $ cF 1 "11" ) # cps (100/120)
+
+  ------------------------ class CONTROL 24 djf 
+  d3 
+  -- $ (speed "[0.5 . <0.7 0.6> . 0.3]/2")
+  $ (speed "[1 . <0.7 0.6> . 0.3]/2")
+  # s "[mody]"  
+  # begin 0 # end 1
+  # legato 1
+  -- # unit "c" 
+   -- # speed 0.055 -- nahe "c"!
+  # djf (range 0.5 0.5 $ cF 1 "24" )
+  # hpf 333
+  # delay 0.5 # delayt "q"  # delayfb 0.5 
+  # gain (range 0 0.9 $ cF 1 "14") # orbit 3 # cps (100/120)
+
+
+--werkbank

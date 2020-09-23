@@ -1,0 +1,112 @@
+sock <- carabiner tidal 4 (1.67) -- 120bpm
+
+-- stand 2020 02 13 bass langsamer wechseln lassen? tonfolge tyb 0 0 5 7 nicht möglich->ändern
+-- toolbox c
+do
+  d1 -- digitakt pattern 1 arpeggio CONTROL 12
+    $ slow 8 
+    $ every 4 (degradeBy 0.66) 
+    $ off 0.125 (# attack 0.4) 
+    $ arp "up" $ n "[[g c as ~](3,8)[~!4]]" 
+    # sound "[superpwm  | supersquare]" 
+    # accelerate "[0.01 .. 0.1]" # resonance "[0.6 .. 0.2 ]/4" # lpf (range 444 1111 $ slow 8 sine) # sustain "[0.1 .. 0.4]" # octave "[6 5]*3" 
+    # room 0.3 # orbit 1 # sz "[0.3 0.4 0.5 1]*3"
+    # gain (range 0 1 $ cF 1 "12" )  
+  d2  -- digitakt pattern 2  strings CONTROL 11
+      $ slow 4 
+      $ struct "[1 1 0 1  1 1 0 0]" -- steigerung *2
+      $ chop "1" -- standard 4 rhythmisierung 16
+      $ jux rev $ s "tyb" 
+      # speed "[0.7]" 
+      # up "[0 0 0 2]"
+      # begin 0 # end 0.2
+      # attack "1" # accelerate 0.01
+      # room 0.4 # sz 0.4 # orbit 2
+      # gain (range 0 1.4 $ cF 1 "11" )
+  
+-- toolbox dis
+do
+  d3 -- PART 2 synth melodie CONTROL 14
+      $ slow 8 
+      $ off 0.125 (# attack 0.4) 
+      $ n "[[~as~fs f ~ds ~] [~!8] [~!8] [~!8] [~!8] [~!8] [~!8] [~!8]]" 
+        # sound "[superpwm  | supersquare]*8" 
+        # accelerate "[0.01 | 0.05]" # resonance "[0.6 .. 0.2 ]/4" # lpf 888 # octave "[6]" 
+        # room 0.3 # sz "[0.3 0.6 0.5 0.2]*2"
+        # gain (range 0 1 $ cF 0.8 "14" )
+
+-- variationen 2020 02 13
+
+do
+  d1 -- digitakt pattern 1 arpeggio CONTROL 12
+    $ slow "[4 4 4 2]" 
+    $ every 4 (degradeBy 0.66) 
+    $ off 0.125 (# attack 0.4) 
+    $ off 0.25 (# distort 0.2) 
+    $ arp "up down pinkyup down" $ n "[[g c as ~](8,8)]" 
+    # sound "[superpwm  | supersquare]" 
+    # accelerate "[0.01]" 
+    # resonance "[0.6 .. 0.2 ]/4"  
+    # sustain "[0.1]" 
+    # octave "[6 5]*3" 
+    # lpf (range 444 1111 $ slow 8 sine)
+    # room "[0.3 0.4 0.2 1]" # sz "[0.3 0.4 0.5 1]*3" # orbit 1 
+    # gain (range 0 1 $ cF 1 "12" )  
+  d2  -- digitakt pattern 2  strings CONTROL 11
+      $ slow 4 
+      $ struct "[1 1 0 1  1 1 0 0]" -- steigerung *2
+      $ chop "4" -- standard 4 rhythmisierung 16
+      $ jux rev $ s "tyb" 
+      # speed "[0.7]" 
+      # up "[0 0 0 0 0 0 0 0]"
+      # begin 0 # end 0.2
+      # attack "1" # accelerate 0.01
+      # room 0.4 # sz 0.4 # orbit 2
+      # gain (range 0 1.4 $ cF 1 "11" )
+      
+      -- reengeneered toolbox 60 bpm      
+      --- plus 
+  do
+    d1 --basis sample slow
+       $ loopAt 8 $ s "[toolbox]" # gain (range 0 1 $ cF 1 "12" ) # cps (60/120)
+    d2  -- fast variation als break
+      $ slice 8 "[[2 1 1 2  2 2 2 2] | [4 4 1 2  8 8 6 5]]"  
+      $ s "[toolbox]" 
+      # legato ( "[0.5 .. 1]" + rand) 
+      # speed "[1 1 1 0.5]"
+      # shape 0.3
+      # gain (range 0 0.9 $ cF 1 "11" ) # cps (60/120) 
+    d3  -- digitakt pattern 2  strings CONTROL 11
+          $ slow 4
+          $ every 4 degrade 
+          $ struct "[1 1 0 1  1 0 0 0]" -- steigerung *2
+          $ s "tyb" 
+          # speed "[0.7]" 
+          # up "[2 0 0 7  0 0 0 0]" -- 2007
+          # begin 0 # end "0.1!3 0" # cut 1
+          # accelerate 0.01
+          # room "[0.4!3 1]" # sz 0.4 # orbit 2
+          # hpf 666
+          # gain (range 0 1 $ cF 1 "14" )
+          
+-- alternative n+up-structure für tyb sample          
+  do        
+  d1 --basis sample slow
+     $ loopAt 8 $ s "[toolbox]" # gain (range 0 1 $ cF 1 "12" ) # cps (60/120)
+  d3  -- digitakt pattern 2  strings CONTROL 11
+      $ slow 2
+      $ jux (rev)
+      $ palindrome
+      -- $ every 4 (degradeBy 0.8) 
+      $ n "[c]*8" -- verschiedene Töne sind verschiedene Slices
+      # s "tyb:4" 
+      # up "[0]"
+      # speed "[1]" -- Ton ist a-gis und a-f
+      # octave "[5]"
+      # begin 0 # end 0.3
+      # accelerate 0.01
+      -- # room "[0.4!3 1]" # sz 0.4 # orbit 2
+      # hpf 666
+      # gain (range 0 1 $ cF 1 "14" )
+          
+          

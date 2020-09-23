@@ -1,0 +1,8 @@
+sock <- carabiner tidal 4 (2.6) -- 80bpm
+
+d1 $ stack [
+-- drums sliced
+slow 1 $ stut 4 0.5 0 $ n "{[0](1,8), [~3]*2, [~ ~~ ~]}" # s "z" # pan 0.5 # legato "<1 1 1 0.5>" # lpf (range 1111 4444 $ slow 16 sine)# gain (range 0  1 $ cF 1 "24"), 
+fast 2  $ layer [id, (*5)] $ n "[[c c ~ ds]]" # s "supersquare"  # sustain (range 0.2 0.3 $ slow 6 rand) # accelerate (range 0 0 $ fast 4 rand) # resonance (range 0 0 $ slow 1 rand) # lpf (range 222 1111 $ slow 16 sine)  # octave "[4]" # hpf 1 # gain (range 0  1 $ cF 1 "12"), 
+slow 4 $ s  "metal*8" # unit "c" # speed "<[0.125*2 0.25 0.5 ~0.25~0.25]>" # legato "[0.5 0.5 1!6 ]" # room 0.5 # sz "[1 0.5!4 1 0.1 0.2]" # distort 0.2 # orbit 1 # gain (range 0  1 $ cF 1 "11")
+] # cps (80/120)

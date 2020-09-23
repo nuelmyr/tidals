@@ -1,0 +1,41 @@
+setcps (120/120)
+
+d10
+$ sound "[808bd:3*2]"
+# gain (range 0 1.5 $ cF 1 "24")
+
+d11
+$ sound "[~ cp]"
+# gain 1
+# cutoff (range 44 3333 $ cF 1 "25")
+
+d12
+$ sound "[~ hh ~ [hh]]"
+# gain 1
+# cutoff (range 222 4444 $ cF 1 "26") # speed (0.3)
+
+
+d1 -- bass
+$ fast 1
+-- $ iter 4
+$ every 8 (0.5 ~>)
+$ n (scale "minPent" "~ [1 2] ~ 1")
+# "supersaw"
+-- -- # resonance "0.1 0.3"
+# lpf (range 1 2222 $ cF 1 "12")
+-- # hpf "333"
+# gain 1
+# pan "0 0.5 1"
+# room 0.3
+# orbit 1
+# note "[-24]" -- 19 21 24
+
+d2 $ slow 8 $ s "moog ~ moog ~moog ~moog~" # up "0 3 5 1" # cut (-1) # cutoff (range 1 4444 $ cF 1 "14") # sustain (range 0.5 2 $ cF 1 "14")
+
+d4 $ slow 2 $ s ("~[~]~, ~[bd]") # gain 1
+
+do
+  let melody = slow 2 $ stut 1 0.5 0.5 $ every 16 (0.5 ~>) $ every 4 rev $ every 16 (density 2) $ n "[c4~g4~ ~as4~c5 ]*2" # "superpwm" # legato 0
+  d3 $ melody |+| n "[-12]" |*| gain "0.8" |*| sustain "0.2 0.4" |*| resonance "0.1 0.3" # cutoff (range 1 2222 $ cF 1 "11") # hpf "222"
+
+hush

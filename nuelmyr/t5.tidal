@@ -1,0 +1,63 @@
+xfade 1 -- 303 intro
+  $ slow (1)
+  $ every 12 (degradeBy 0.85)
+  $ n"c3~~ds3~~ f3~f3~f3~ " -- 1/8 triolen
+  # s "superpwm"
+  # lpq (range 0.1 0.9 $ slow 12 sine)
+  # djf (range 0.6 0.5 $ slow 12 sine)
+  # gain 1
+  # cps (110/120)
+  
+xfade 1 -- 303 bass
+  $ slow (10/4)
+  -- $ every 12 (degradeBy 0.60)
+  $ ply 2
+  -- $ off "h" (id)
+  $ n"e3@4~~ g3@4~~  a3~~~~~  ~~~a3~~  ~~~~~~ " -- 1/8 triolen
+  # legato "2 3 " -- 1/8 triolen
+  # s "superpwm"
+  # octave 4
+  # lpq (range 0.1 0.9 $ slow 12 sine)
+  # djf (range 0.6 0.5 $ slow 12 sine)
+  # gain 1
+  # cps (120/120)
+  
+d2 -- 303 melody interpretating bass
+  $ slow (10/4)
+  $ every 8 (|+ note "3 5 7")
+  $ off "<t?0.2>" (# hpf (range 333 2222 $ slow "2 3 1" tri))
+  $ n"  f3~~~~~  ~~~f3~~  f3~~~~~ " -- 1/8 triolen
+  # legato "2 " -- 1/8 triolen
+  # s "arpy?0.13"
+  # delay 0.25 # delayt "t"  # delayfb "<0.15 0 0.1 0>"
+  # djf (range 0.6 0.5 $ slow 12 sine)
+  # gain 1
+  # cps (110/120)
+  
+d2 -- 303 melody interpretating bass
+  $ slow (20/4)
+  $ every 8 (|+ note "3")
+  $ off "<t q>" (id)
+  $ n"  c~~~  ds~~~  f~c5~ ~~~~ ds~f~" -- 1/8 triolen
+  # legato "0.5" -- 1/8 triolen
+  # lpq "0.7"
+  # djf 0.5
+  # octave 5
+  # s "superpwm"
+  # room 0.4 # sz 0.4 
+  # delay 0.5 # delayt "h"  # delayfb 0.5
+  # orbit 1
+  # gain 0.7
+  # cps (110/120)
+  
+  xfade 2 silence
+  
+  d12 $ slow (10/4) $ s "[808*5,  [808:3]([2 | 4?0.3],60), [808:2*10]]" # shape 0.5 # gain 1 # hpf 111 # lpf 1555 # cps (110/120)
+  
+  --- werkbank
+  d1 $ loopAt 16 $ s "[rir]" # cut 1 # gain 0.8 # cps (100/120)
+  
+  d2  $ speed "[1 0.8]" # s "[inr]" # accelerate 0.1 # n (range 8 12 $ slow 2 sine) # amp 2 # delay 0 # delayt "q"  # delayfb 0.2 # gain 3 # cps (110/120)
+
+  
+  

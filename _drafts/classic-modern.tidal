@@ -1,0 +1,20 @@
+sock <- carabiner tidal 4 (-0.36)
+
+do
+let raum =  (range 0.0 0.8 $ cF 2 "33")
+let cmpad1 = slow 2 $ "slowloop:2(3,8)" # legato 4 # speed 0.5 # gain 0.9 # lpf (range 1111 222 $ slow 16 sine)
+let cmbass1deep = slow 4  $ n "[~c6]*2 [~as]*2"# s "supersaw" # cut 1 # octave 2 # legato 2 # lpf 222 # gain 0.85
+let cmbass1 = slow 1  $ struct "[1 ~~1 ~~1~ ]*2" $ s "basssyn" # cut 0 # speed "[[1.2]*3 [1.05]]/4"  # gain 0.7
+let cmpad2 = slow 1 $ every 8 rev $ n "[f@3 ~~f@3 ~~f@3]d@1" # s "supercomparator" # gain 1 # octave 3
+let cmgit =  slow 4  $ every 8 rev $ every 3 degrade $ struct "[[1 1] 0 [1] 1*2? ]" $ s "smp:1" # gain 0.55 # legato "<2 4 0.9 4>" # speed "<1>" # room (raum) # sz (raum) # orbit 1 # pan rand
+let cmbar = slow 32  $ every "<2 4>" degrade $ jux rev $ chop (choose [32, 16, 88, 64])  $ s "[~]*7 mbar" # legato "<4 2 2 4 1>" # speed 1 # hpf (range 888 11 $ slow 16 sine) # lpf (range 0 4444 $ slow 1 tri)# room (raum) # sz (raum) # orbit 2 # pan (range 0.3 0.7 $ slow 4 sine) # gain (range 0.0 0.85 $ cF 2 "15")
+let fx1 = slow 1 $ s "mfxx:19" # cut "0" # speed 0.8 # gain 0.45 # room 1 # sz 0.7 # orbit 2
+let fx2 = slow 8 $ s "fxx [~~~~][~~~~][~~~~][~~~~][~~~~][~~~~][~~~~][~~~~][~~~~]" # cut "0" # speed 0.8 # gain 1 # room 1 # sz 0.7 # orbit 2
+let sil = slow 1 $ n "~" # s "superpwm" # gain 0
+let cmp = slow 4  $ chop "<1>" $ s "mapo(3,9?)*4" # legato "1.2" # speed (choose [1, 0.95, 0.9, 0.85]) # hpf 333 # cut "<1 0 0 1>" # room (raum) # sz 0.4 # orbit 3 # gain (range 0.0 0.85 $ cF 2 "14")-- leg 1.2 "understand" leg 2 "... captain" leg 4 "... not exit" leg 12 "... nor will ever exist"
+-- pre-mix
+d1 $ slow 1 $ stack [sil, cmbass1, cmbass1deep, cmbar]
+
+hush
+
+d11 $ slow 1 $ s "[bru:2]/4" # begin 1 # end 0 #legato "[<2 3 2>]" # gain 0.8 # speed (range 0.8 1 $ slow 16 saw) # hpf 444

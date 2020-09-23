@@ -1,0 +1,25 @@
+-- volca memory 1
+-- midiclock
+p "midiclock" $ midicmd "midiClock*48" # s "midi" # nudge 0.17 # cps 1.2
+
+p "midictl" $ midicmd "start/4" # s "midi" # nudge 0.17
+
+p "midictl" $ silence
+
+--basses
+d11 $ slow 2 $ note "a2 a2 ~a2 a2 a2~a2" # "supersaw" |+| up "[0 3 -4 5]/4"
+# sustain 0.14  # lpf "444" # gain 0.9 # attack "0.5 0.2 0.5 0.2 0.5 0.2 0.5 0.2"
+# cutoff (range 1 999 $ cF 2 "12")
+
+
+d11 $ slow 2 $ note "a2*8" # "supersaw" |+| up "[0 3 -4 5]/4"
+# sustain 0.14  # lpf "444" # gain 0.9 # attack "0.5 0.2 0.5 0.2 0.5 0.2 0.5 0.2"
+# gain 0.85 # cutoff (range 1 999 $ cF 2 "12")
+
+d11 $ slow 2 $ note "b2*8" # "supersaw" |+| up "[0 1 -5 1 0 1 -5 -6]/8"
+# sustain 0.14 # lpf "444" # gain 0.9 # cutoff (range 1 999 $ cF 2 "12")
+
+--string
+d13 $ slow 4 $ palindrome $ n "a6 ~" # "superpwm" # gain 0 # sustain 2
+
+hush

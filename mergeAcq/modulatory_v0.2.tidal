@@ -1,0 +1,156 @@
+-- modulatory_v0.1
+
+-- mody beep stack checken
+-- bass main noch etwas reduzieren
+
+sock <- carabiner tidal 2 (2) -- 100bpm
+
+-----------------------------song struct modulatory v0.2----------------------------------------
+0 tc mody beep+klick C12
+--1 dt sample beep
+--2 dt git
+--3 dt marimba 
+4 tc bass intro
+--5 dt snare
+--6 dt accorde tc beep+klick off
+7 dt+tc drum / bass main
+
+
+----------------------------mody beep CONTROL 36 detune
+xfade 2 $ stack [ 
+  slow 2 $ struct ( "1 0 0 1  0 1 0 1  0 0 0 1  0 1 0 0 ") $ "mody?0.33" # note "30" # speed (range 1 1.1 $ cF 1 "36")# begin 0.07 # end 0,
+  slow 2 $ struct ( inv "1 0 0 1  0 1 0 1  0 0 0 1  0 1 0 0 ") $ "mody" # note "30" # begin 0.03 # end 0 # cut 1 # hpf 888 
+  ] # djf (range 0 0.95 $ cF 1 "24" ) # delay 0.5 # delayt "t"  # delayfb 0.5 # orbit 3 # gain (range 0 0.5 $ cF 1 "12") # cps (100/120)
+
+xfadeIn 2 8 silence
+
+------------------- bass CONTROLS 31 djf / 33 shape
+-- bass intro
+d1 $ slow 4 
+                $ struct ("1 0 0 0 0 0  0 0 0 0 0 0  0 0 0 0 1 0  1 0 1 0 1 0") -- 1/8 triolen
+                $ s "mgg" 
+                # note "[c1!6 c2!6 c2!3 c1!3 as1!3 b1!3 ]"
+                # legato "[14!6 1!6 1!6 1!3 1!3 ]"
+                # octave 8
+                # hpf 11
+                # djf (range 0.3 0.70 $ cF 1 "31")
+                # shape (range 0.3 0.7 $ cF 1 "33")
+                # gain (range 0  1 $ cF 1 "11" ) # cps (100/120)
+                
+-- bass main CONTROLS 31 djf / 33 shape
+d1 $ slow 4 
+                $ struct ("1 0 0 0 1 0  1 0 0 0 1 0  1 0 0 0 1 0  1 0 1 0 1 0") -- 1/8 triolen
+                $ s "mgg" 
+                # note "[c1!6 c2!6 c2!3 c1!3 as1!3 b1!3 ]"
+                # legato "[14!6 1!6 1!6 1!3 1!3 ]"
+                # octave 8
+                # hpf 11
+                # djf (range 0.3 0.70 $ cF 1 "31")
+                # shape (range 0.3 0.7 $ cF 1 "33")
+                # gain (range 0  1 $ cF 1 "11" ) # cps (100/120)
+
+------------------------ class CONTROL 24 djf 
+xfade 5 
+$ every "1 2" degrade
+$ every 4 (|+ speed 0.055)
+-- $ chop 4 -- rhym
+-- $ ply 2 -- ducking
+$ off 0.5 (#hpf 555)
+$ off 1 (#squiz 0.2 )
+$ s "[mody]"  
+# begin 0 # end 0.25
+# cut 0
+# unit "c" 
+# speed 0.055 -- nahe "c"!
+ # djf (range 0.5 0.8 $ cF 1 "24" )
+ # lpf (range 333 888 $ slow 16 tri)
+ # hpf 444
+# delay 0.5 # delayt "q"  # delayfb 0.5 # orbit 4 
+# gain (range 0 0.9 $ cF 1 "14")  # cps (100/120)
+
+
+
+
+
+--werkbank
+-----------------------------------------------------------bass erste Idee
+d1 
+-- $ segment " [4]"
+-- $ every 4 rev
+-- $ off 0.5 (|+ n "1")
+-- $ off "0.5 0.125" (|+ n "[1 ]")
+-- $ iter 4
+$ n "[c2 [c2 c2] [c3] c2  c2 c2 b1~  c2 [c2 c2] c2 c3   c2 c2 b1~ ]/4"
+-- $ n (scale "ritusen" $ "[3 [3 3]  ~ 3]")
+-- $ n (scale "minor"
+--                      $ floor <$> (range "<5 6>" "<8~>" sine)
+--                     )
+ -- # djf (range 0.4 0.75 $ slow 4 sine)
+ -- # legato "[<0.5 0.8 0.6 0.4>]" 
+ # sustain "[0.2!6 0.5 0]/2"
+ -- # begin 0.2 # end 1
+# s "[mgg]"
+-- # octave 1
+-- # shape 0.3
+-- # octave 3
+#  lpf 333
+-- # hpf 0
+# gain (range 0 1 $ cF 1 "11") # orbit 0 # cps (100/120)
+
+--------------------------------------------sock carabiner values
+-- 070 3.04 -> 4 (3.04)
+-- 080	2,60
+-- 090	2,33
+-- 100	2,00
+-- 110	1,82
+-- 120	1,67
+-- 130	1,50
+-- 140	1,38
+-- 150	1,30
+
+werkbank
+------------------------ drum
+d2 $ "808*2" # djf (range 0.4 0.7 $ cF 1 "33" ) # gain (range 0 1.3 $ cF 1 "12")
+
+----bass sync kontrolle bekommen
+
+do
+    {
+      resetCycles;
+      d1 $ rotL 12 $ seqPLoop [
+      (0, 12, slow 4 
+                      $ struct ("1 0 0 0 0 0  0 1 0 1 0 0  1 0 0 0 0 0  1 0 1 0 1 0") -- 1/8 triolen
+                      $ s "mgg" 
+                      # note "[c1!6 c2!6 c2!6 as1!3 b1!3 ]"
+                      # legato "[14!6 1!6 1!6 1!3 1!3 ]"
+                      # octave 8
+                      # hpf 11
+                      # djf (range 0.3 0.75 $ cF 1 "31")
+                      # shape 0.4
+                      # gain (range 0  1 $ cF 1 "11" ) # cps (100/120)),
+      (12, 16, slow 1
+                      $ struct ("1 0 0 0  1 0 0 0  1 0 0 0  1 0 0 0") 
+                      $ s "mgg" 
+                      # note "[c2]"
+                      # octave 8
+                      # hpf 111
+                      # djf (range 0.5 0.75 $ cF 1 "31")
+                      # shape 0.4
+                      # speed "[1]"
+                      # gain (range 0 1 $ cF 1 "11" ) # cps (100/120))
+      ]
+    }
+    
+    ------bass sequenzer
+    
+    d1 $  slow 4 
+                    $ struct ("1 0 0 0 0 0  0 1 0 1 0 0  1 0 0 0 0 0  1 0 1 0 1 0") -- 1/8 triolen
+                    $ s "mgg" 
+                    # note "[c1!6 c2!6 c2!6 as1!3 b1!3 ]"
+                    # legato "[14!6 1!6 1!6 1!3 1!3 ]"
+                    # octave 8
+                    # hpf 11
+                    # djf (range 0.3 0.75 $ cF 1 "31")
+                    # shape 0.4
+                    # speed "[1]"
+                    # gain (range 0  1 $ cF 1 "11" ) # cps (100/120)

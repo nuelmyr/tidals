@@ -1,0 +1,75 @@
+setcps (115/120)
+
+-- atmos
+d16 $ loopAt 8 $ s "mfx:1 ~" # lpf "555 1111 111" # gain 1
+
+
+
+
+d15 $ loopAt 16 $ s "mfx:0" # gain 1 # lpf "777"
+
+xfade 14 $ loopAt 8 $ s "ds:2*4" # gain 0.8 # lpf "1" # speed 2
+
+hush
+
+-- bass
+d10 $ every 4 rev $ palindrome $ note  "[c3 ~ d3 [ c3 c3]]"
+# "supersaw" # gain 0.6 # lpf "33" # sustain 0.2
+
+-- arp
+d9 $ slow 1 $ every 3 rev $ palindrome $ note "[c4 d4 fs4 ~ fs4  c4 ~ ~]/2"
+# s "superpwm" # resonance "0.2 0.1 0.3" # gain 0.6 # sustain "0.2 0.2 0.2 0.6 0.6"
+# lpf "777"
+
+-- pad
+d8 $ slow 2 $ note "c3 ds3" # s "supersaw"
+# gain 0 # sustain 0.7 # resonance "0.1 0.4 0.6"
+
+-- drums d14 $ s "808bd:3*4" # gain 1.2
+d1 $ s "808bd:3*2" # gain 1
+
+d2 $ s "[~ 808:4]*2" # gain 1
+
+d3 $ s "[ ~ cp]*2" # gain 1
+
+d4 $ stut 4 0.66 0.88 $ s "[chink](3,8) " # gain 0
+
+-- voices
+d11 $ fast 0.25 $ sound "mast ~ ~ ~" # gain 0
+
+d12 $ loopAt 8 $ s "mnat" # lpf "444" # gain 1
+
+-- strings
+xfade 13 $ loopAt 8 $ sound "mclas" # gain 0.1
+
+d13 silence
+
+hush
+
+
+
+hush
+
+
+d6  $ slow 1 $ every 3 rev $ iter 4 $ note "[~ c4 c4 c4 ds4 ~ f4 fs4]"
+# s "superpwm"  # gain 0.6 # resonance 0.5 # sustain 0.2 # lpf " 3999 4666" # hpf "1"
+
+d7 $ slow 4 $ stut 4 0.5 1 $ palindrome $ note "[c5'min ~ ds5'min ~ f5'min ~ ~ ds5'maj]"
+# s "superpiano" # gain 0.6 # sustain 1 # hpf "1"
+
+xfade 7 silence
+
+
+d6 $ loopAt 8 $ sound "mnat(5,12)" # gain 0.8 # pan "-1 0 1"
+# lpf "4444" # speed 0.95 # lpf "1"
+
+d10 $ loopAt 4 $ sound "mfx(3,8)"
+# speed 1 # gain 1 # lpf "5555" # pan "0.75 0 -0.75"
+
+xfadeIn 10 8 silence
+
+d12 $ loopAt 8 $ gap 32 $ sound "mfx:3" # gain 0.9 # speed 0.4 # lpf "1" # resonance 0.6
+
+d12 silence
+
+hush

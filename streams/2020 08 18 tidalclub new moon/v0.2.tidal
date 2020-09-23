@@ -1,0 +1,345 @@
+TidalClub new moon streaming 18/08/2020
+nuelmyr | Frankfurt (M) Germany
+v0.2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# cor (influenced by Peter Eötvös)
+
+-- cor
+d3 $ (#speed (range 0.5 1 $ slow 16 sine)) $ ply "0.1 1" $ s "[cor?0.5 ~]*2"  # legato 16 # room 0.8 # sz 0.9 # orbit 2 # comb 1 # gain 1
+
+-- letras
+xfade 2 $slow 4  $ palindrome $ plyWith "[ 1 2 4]" (# comb 0.7)  $ n "[3 4 5 6 7 ~~]"  # note "0 1 2 4" # s "[cor]" # delay 0.5 # delayt "h"  # delayfb 0.7 # orbit 1 # hpf 333  # room 0.4 # sz (range 0.4 1 $ slow 4 sine) # orbit 3 # gain 0.9 # cps (127/120)
+
+
+-- eoe deep  CONTOL 11
+xfadeIn 4 16 $ slow 16 $ off 0.25 (# note (-24)) $ s "[cor:2]" # note 1 # speed 0.5 # shape 0.5 # gain (range 0 1.2 $ cF 1 "11")
+
+-- eoe siren -- eoe hoch CONTROL 12
+xfadeIn 1 16
+  $ qtrigger 1
+  $ gap 4
+  $ jux rev
+  $ off 0.125 (id)
+  $ off 0.25 (# speed 1.6)
+  $ slice 4 "[4 1 [3 3? 3] 2]"
+  $  s "[cor:2?0.25]"
+  # note "[12]"
+  # accelerate "0.1"
+  # speed "<1 0.8 1 0.4> "
+  # hpf 222
+  # pan rand
+  # cut "1 0 0 1"
+  # delay 0.5 # delayt "h"  # delayfb 0.8
+  # gain (range 0 1 $ cF 1 "12")
+
+d3 silence -- cor
+
+d2 silence -- letras
+
+d4 silence -- eoe deep
+
+once $ "mfx" # begin 0 # end 1 # speed 0.4 # gain 1.1 -- drone
+
+
+-- drums + chor for Eötvös + Pärt CONTROL 14
+xfadeIn 1 32
+$ stack [
+  slow "[4!3 2]" $ off 0.5 (#hpf 888) $ every 8 (degradeBy 0.65) $ iter 4 $ ply "[1. [0 | 2] 4]" $ s "[z:0*4, z:1?]" # lpf (range 666 1111 $ slow "8 4 16" square) # room 0.5  # sz "[0.4!3 0.8 0.9]/4" # orbit 1  # gain 1.2,
+  slow 8  $ jux rev $ palindrome $ note "[0@4 2@2 5@2 7@4 0@4]" # s "kor" # legato 1.1 # accelerate 0.01 # room 0.4 # sz 0.6 # orbit 4 # pan rand # lpf (range 0 2222 $ slow 16 sine)  # gain (range 0 1.1 $ cF 1 "14")
+] # cps (127/120)
+
+xfadeIn 1 16 silence
+
+---------------- part 2--------------
+# sintalismo (algocumbia)!!!
+
+-- bass (deep bass) CONTROL 11
+d4
+  $ qtrigger 1
+  $ fast " 1!7 2"
+  $ every 4 (degradeBy 0.15)
+    $ every 4 (|+ note "2")
+  $ s "bss:120*12"
+  #speed "1~~~  1~1.2~  ~1.2~~"
+  # slide 0.2  # orbit 3 # lpf (range 333 1111 $ slow 8 sine)
+  # lpq (range 0.1 0.3 $ slow 2 sine)
+  # legato 1
+  # octave 4 # orbit 0 # gain (range 0 1 $ cF 1 "11") # cps (74/120)
+
+
+# reggaeton and cumbia 
+-> gracias al NOA (NorOeste Argentino)
+
+
+-- drums CONTROL 12
+d2
+  $ qtrigger 1
+  $ every 4 (ply "<1 1 1 2>")
+  $ every 8 (off "[<0.25 [0.5 0] 1>]*2" (#djf 0.85))
+  $ s "[[cpu ~cpu:11 cpu:2 cpu ~cpu:2~]]"
+  # lpf (range 999 3333 $ slow 4 square)
+  # orbit 0 # room 0.4 # sz 0.2 # orbit 1 
+# gain (range 0 1.2 $ cF 1 "12")
+  # cps (74/120)
+
+-- drums fill CONTROL 31 hpf
+xfade 2 $ qtrigger 1 $ "fll" # speed (74/90) # djf (range 0.81 0.5 $ slow 8 sine) # room 0.4 # sz (range 0 0.1 $ cF 1 "31") # orbit 1 # hpf (range 1 6 $ cF 1 "31") # gain 1.2
+
+
+-- synth superresse (siren)
+--GAIN 14 
+-- CONTROL 32, 33, 35, 36
+d1
+$ slow 4
+$ off 0.25 (|+ n (range 0 12 $ cF 1 "33") )
+$ every 2 (off 0.125 (# squiz 0.7))
+$ every 2 (|+ n "[<2 4>]")
+$ n "[[c ~]  [c ds](3,8)]*2"
+# s "[supersquare?0.13]" # octave (choose [6,3,5,6])
+# djf (range 0.3 0.85 $ cF 1 "35")
+# lpq (range 0 1 $ cF 1 "32")
+# sustain (range 0.02 0.5 $ cF 1 "36")
+# delay 0.2 # delayt "<h>" # delayfb 0.8 # orbit 8
+# pan rand # hpf 666 # gain (range 0 1 $ cF 1 "14")# cps (74/120)
+
+
+d4 silence -- bass
+
+d2 silence -- drums
+
+
+--------------------- tyb units
+-- tyb1 control 14
+d1 $ slow (5/1) $  every 3 rev $ slice 4 "4 3 1 1"$ s "[[tyb]?0.36]*4"  # speed "0.5!3 0.45" # begin "<0!3 0.8>" # end "<1!3 0>" # accelerate 0.005 # attack 1 # decay 5 # release 8 # lpf (range 222 1111 $ cF 1 "35") # gain (range 0 1.2 $ cF 1 "14" ) # cps (100/120)
+
+-- bass CONTROL 14
+d4 $ slow 4 $ off "e"(# hpf 111) $ struct (every 3 inv "[0 1 0 0  1 0 0 0  0 0 0 1  0 0 0 0](3,8)") $ s "bss:27?0.0314159" +| note "[fs4 e4]"  # legato "<0.7>" # lpf 1111 # hpf 88 # orbit 3 # gain (range 0 1 $ cF 1 "14" ) # cps (100/120)
+
+-- drum CONTROL 12 (kick) 15 (snare)
+xfade 2 $ stack [
+  every 4 rev
+  $ every 6 (ply 2)
+  $ slow 2
+  $ s "[z~z~ z~~z]"
+  # amp (range 0 1 $ cF 1 "12")
+  -- # gain "0.8 1!5 0.9 1"
+  ,
+  struct ("0 1 0 0  0 0 1 0")
+  $ sound "rol:3"
+  # legato 0.9
+  # amp (range 0 1.2 $ cF 1 "15")
+  # gain "0.8!4 0.6!4"
+  ] # orbit 1 # cps (100/120)
+
+
+-- bass CONTROL 14
+d4 $ slow 4
+$ every 3 (ply 2)
+$ struct ("[0 1 0 0  1 0 0 0  1 0 0 1  0 0 1 0](3,4)")
+$ s "bss:13"
++| note "[-7 -5]"
+# legato 2
+# orbit 3 # gain (range 0 1 $ cF 1 "14" )
+
+
+-- tyb2 CONTROL 11
+xfade 3
+$ off "q" (#speed (range 1 3 $ cF 1 "32"))
+$ every 8 (|+n 2)
+$ every 4 (#accelerate "<0.8 0.9 0.3 1>")
+$ gap 4 -- duck
+$ off "h" (id)
+$ chop "1 16 32"
+$ s "tyb:4(3,8)"
+# speed "[0.75 1]"  # unit "c"
+# djf (range 0.3 0.75 $ cF 1 "31")
+# delay 0.5 # delayt "q"  # delayfb 0.5
+# hpf 333
+# orbit 2
+# gain (range 0 1 $ cF 1 "11" )
+
+
+xfade 3 silence -- tyb2 siren
+xfade 4 silence -- bass
+xfade 1 silence -- tyb1
+xfade 2 silence -- drums
+
+------------------------ pocalyps
+-- boat engine CONTROL 12
+d1
+$ slow 4
+$ off 0.25 (id)
+$ s "[mfx](3,8)"
+# speed "0.4 0.2 0.7 0.3"
+# cut 1
+# lpf (range 3333 1111 $ slow 16 sine)  |+| up "[0  3 0 ]"
+# delay 0.5 # delayt " h"  # delayfb 0.75
+# hpf 22
+# amp 1.9
+# gain (range 0.1 1.1 $ cF 1 "12")
+
+-- the capt
+-- 0.8 ... understand 8 ... not exist 16 ... ever exit
+-- CONTROL 11 und hpf 26
+d3 $ slow 1 $ jux (rev) $ stut 4 1.2 0 $ s "[apo(<1? 3 1>,<1 4 11>, <1 0 2>)]" # legato "<0.8>" # hpf (range 222 1111 $ cF 1 "26") # room (range 0.1 0 $ cF 1 "26")# speed "<1 0.9>" # pan rand # gain (range 0 1 $ cF 1 "11")
+
+-- click drum CONTROL 14
+xfade 2 $ fast (127/60/2) $ s "[[min127:2]?0.13]" # begin "<0.1 0>" # end "<1 0.5>" # speed (127/120) # hpf 222 # room 0.4 # sz 0.4 # orbit 2 # gain (range 0 0.8 $ cF 1 "14")
+
+-- kick CONTROL 15
+d4 $ slow 4 $ every 4 rev $ every "3 2 4 8" (fast 2) $ struct "[1 1 0 1  1 0 1 1  0 1 0 0  1 0 0 1](3,8)" $ s "808" # speed "[<1 0.9 0.8 1>]" # lpf 888 # gain (range 0 1.2 $ cF 1.1 "15") # room 0.3 # sz 0.3 # cps (127/120)
+
+--cut out 3,4,2,
+d2 silence
+
+---------- no space f.a.d.
+--piano CONTROL 12 
+xfadeIn 1 32 
+$ stut 4 0.25 0.25 
+$ s "[schoe?0.5]"  
+# begin 0.5 # end 1 
+# speed  (choose [0.1,0.2,0.3,0.8,0.5,0.9,0.3,0.4]) 
+# legato "<2 4>" # hpf 666 # room 0.5 # sz 0.8 # orbit 0 # gain (range 0 1.2 $ cF 1 "12")
+
+-- noise room carpet CONTROL 11
+d2 $ fast 2 $ s "noise:2"  # begin 0.63 # end 0.7 # legato 1 # lpf (range 555 2222 $ slow 32 sine) # gain (range 0 1.2 $ cF 1 "11" )  # room 0.7 # sz 0.8 # orbit 1
+
+-- kick + snare CONTROL 31djf 14gain
+xfade 4 $ slow "<16 4 8 2 0>" $ off 0.25 (# squiz 0.2)$ iter 4 $ stitch "[t?0.1 t?0.25 f?0.55 t?0.3]([3],[8|16])" (sound "cpu:8 cpu2") (sound "808 cpu2:3") # djf (range 0.5 0.5 $ cF 1 "31") # room 0.6 # sz 0.7 # orbit 3 # gain (range 0 1 $ cF 1.3 "14" ) # hpf 211 # cps 1
+
+-- get in touch CONTROL 24 - gracias BURAK
+d10 $ qtrigger 1 $ stut 4 0.5 0.5 $ s "[liq:5?0.86]" # speed 1.03 # legato "2 8" # hpf 666 # room 0.5 # sz 0.7 # orbit 9 # gain (range 0 1 $ cF 1 "24")
+
+-- bass
+xfadeIn 5 32 $ qtrigger 1 $ s "supersaw/2" # n "c2" # legato 0.6 # lpf 222 # gain 1
+
+-- classic #bru CONTROL 15
+xfadeIn 1 32
+$ qtrigger 1
+$ off "q" (jux (rev))
+$ slice "16" "{7 ~ 3 2  ~ 0 1~ 5  7 [3 2] ~}/16"
+$ s "[bru:1]"
+# speed "<0.86>" # hpf 222 # begin 1 # end 0
+# legato "[4 0 2 1]"
+# pan rand
+# squiz 0.7 # orbit 2 # gain (range 0 1.1 $ cF 1 "15" )
+
+--fade out 1,4,5,10,1,2
+xfadeIn 2 32 silence
+
+
+compl STOP "."
+
+
+###### -extra - algoraoke
+
+-- speed CONTROL 24 -> ZERO
+
+"popp muzzikk"
+
+-- CONTROL 11
+d1
+$ qtrigger 1
+$ slow 2
+$ speed (range 0.5 1 $ cF 1 "24")
+#  s "[pop:2]"
+# cut "1 1 0 1"
+# squiz (range 0 1 $ cF 1 "24")
+# gain (range 0 1 $ cF 1 "11")
+# cps (120/120)
+
+
+
+
+algoraoke in my TIDALCLUB :-)
+
+
+----------------blue mrill monday
+do
+  let mrllbass = n "[[d]!4 ]" # s "supersaw" # octave 3 # sustain 0.2 # gain 0.6 -- bass strophe und ref
+  let mrllbassbreak = n "[[d3]!6 [c3]!6 [g2]!6 [f2]!6]/8" # s "superpwm"  # voice 0.2 # sustain 0.2 # octave 5 # gain 0.8
+  let mrllsmplstrophe = splice 8 "[ 8 8 8 6]/8"  $ s "[mrll]"  # gain 1.1 # hpf 555
+  let mrllsmplbreak =  splice 4 "[8 7 [5] 5]/8"  $ s "[mrll]"   # begin 0.75 # end 1 # delay 0.7 # delaytime "<h>"  # delayfeedback 0.5 # orbit 1 # lpf (range 222 2222 $ slow 64 tri) # gain 0.9
+-- let mrllintro =
+  let mrllbassrefrain = n "[[d]!4 ]" # s "supersaw" # octave 3 # sustain 0.2 # gain 0.65
+  let mrllsmplrefrain =  splice 4 " [1 2 [2] [4]]/8"  $ s "[mrll]" # hpf 555 # gain 1.1
+  let mrlldrumbasic = s "[th127:5]" # legato 0.1 # speed (120/127)  # gain 0.9
+  let mrlldrumbreak = stut 4 0.5 0.5 $ brak $ s "[cpu*2 cpu:3]" # legato 0.1 # gain 0.9
+  let mrlldrumrefrain = s "[th127:13]" # legato 1 # hpf 77 # speed (120/127) # gain 0.9
+  let mrlldrumfill = slow 2 $ struct ("1 1 0 1  1 0 1 0  0 1 0 1  1 1 0 0") $ s "[syndrum:3]" # note "4 0 3 1" # cut 1 # room 0.8 # sz 0.6 # orbit 2 # gain 0.6
+  let mrllbluemondayhh = stack [slow 2 $ struct ("[1 0 0 1  0 0 1 0  0 1 0 0  0 0 0 0]") $ "cpu:3" # hpf 77 # gain 0.95,
+                                                    slow 2 $ struct ("[1 0 0 1  0 0 1 0  0 1 0 0  0 0 0 0]") $ "cpu" # gain 0.9
+                                                    ]
+  let mrllbluemondaybd = slow 4 $ "cpu!2 [cpu*4] [cpu*4] cpu!4" # hpf 88 # orbit 0 # gain 1 -- blue monday bd break
+  let mrllwayto = s "[[mrll:1 ~~~] [mrll:1 ~~~]]/4" # speed 1.06 # orbit 10 # comb 0.2 # squiz 0.5 # hpf 777 # phasr 0.9 # gain 0.8
+  --song struct
+  let mrllstrophe = stack [mrlldrumbasic, mrllbass, mrllsmplstrophe]
+  let mrllbreak = stack [mrlldrumbreak, mrllbassbreak, mrllsmplbreak]
+  let mrllbluemonday = stack [mrllbluemondaybd, mrllwayto]
+  let mrllrefrain = stack [mrlldrumrefrain, mrllbassrefrain, mrllsmplrefrain]
+  do
+  {
+    resetCycles;
+    d2 $ rotL 0 $ seqPLoop [
+      (4, 36, mrllstrophe), -- 32 ok
+      (36, 68, mrllbreak), -- 32 ok
+      (68, 76, mrllbluemonday), -- 8 ok
+      (76, 80, mrllbluemondayhh), -- 4 ok
+      (80, 112, mrllrefrain), -- 32 ok
+      -- effekte
+      (0, 8, sound "fx120" # legato 3 # begin 1 # end 0 # gain 0.75), --2
+      (34, 36, mrlldrumfill), --2
+      (33, 36, sound "fx:2" # legato 4 # gain 0.8), --2
+      (66, 68, sound "fx:2" # gain 0.6), --2
+      (79 , 80, mrlldrumfill), --2
+      (78, 80, sound "fx:2" # gain 0.6)
+    ] # room 0.3 # sz 0.1 # amp 0.8 # orbit 0 # cps (120/120)
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  listen carefully
+  thanks to 
+  # hahnb3 (mergeACQ)
+  # lordavas (IT)
+  
+
+  nuelmyr
+  @twitch
+  @youtube
+  @github.com/nuelmyr/newmoon2020
+  @telegram
+  @twitter
+  @mastodon
+  @gmail
+
+xfadeIn 2 16 silence -- 15"
+
+
+
+...

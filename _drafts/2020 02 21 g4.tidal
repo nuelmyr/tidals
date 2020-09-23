@@ -1,0 +1,21 @@
+sock <- carabiner tidal 4 (2.6) -- 80bpm
+
+d1 $ slow 4  $ slice 4 "[~2~2]*4"$ s "[g4]" # delay 0.8 # delaytime 0.5 # orbit 1# legato 4 # lpf 1111 # hpf 333 # up "<[0 0 0 -5  0 0 0 -7]>" # cps (61/120) # gain 1.1
+d1 silence
+d2 $ slow 2 $ iter 4 $ layer [id, off 0.125 (# pan rand), jux rev] $ plyWith "<[2 1 2 3]>"  (#speed "0.5 0.5 0.5 1") $ struct "[0 1 0 1  1 0 0 0]"  $ s "[g4:5]" # legato  "[1]"  # hpf 666 # speed 1  # room 0.2 # sz "[0.8 1]" # orbit 2  # cps (61/120) # gain 0.7
+d2 silence
+d3 $ slow 4 $ s "[~g4*2]*16" # legato 1 # n "[1]" # up "[0!8 -4!8]" # cps (61/120) # gain 1.2
+d3 $ slow 4 $ s "[~supersaw*2]*16" # legato 1 # n "[c3]" # cps (61/120) # gain 0.9
+d3 silence
+d4 $ slow 4 $ n "[c7@2 d7 e7]" # s "superhoover"  # gain 0.6
+d4 silence
+d5 $ slow 2 $ n "[c5 c5 d5 e5](3,8)" # s "superpwm"  # legato 0.4 # gain 1
+d5 silence
+d14 $ fast 2 $ s "[z*2]*4" # legato 1 # gain 1 # lpf 999 # cps (61/120)
+d15 $ fast 2 $ s "[~808:1]" # legato 1  # gain 0.9 # pan 0.7 # room 0.4 # sz 0.4 # orbit 10 # hpf 1111 # cps (61/120)
+d16 $ fast 2 $ s "[[~z:3]*2]" # legato 0.1 # gain 0.9 # pan 0.3 # cps (61/120)
+d14 silence 
+d15 silence
+d16 silence  
+
+

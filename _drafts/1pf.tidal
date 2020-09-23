@@ -1,0 +1,34 @@
+p "midiclock" $ midicmd "midiClock*48" # s "midi"  # cps (110/120)
+
+p "midictl" $ midicmd "start/4" # s "midi"
+
+hush
+
+do
+-- drumloops
+  let pfloop1 =  slow 4  $ chop 8 $ s (samples "[psr*4]" (irand 8)) # cut "0" # gain "<[1.3 1.5 1.7 1.1]>" # hpf 666  # lpf 1111 # room 0.3 # orbit 3
+  -- -- drumllopbreaks
+  -- let pfloop1break =  every 4 (stut 4 0.5 0.5) $ s "[ds:2]" # begin 1 # end 0.45 # hpf 2222 # gain 1
+  -- basses
+  let pfbass1 =   slow 8   $ n "[[~g3]*4[~g3]*4[~g3]*4[~d3]*4]" # s "midi" # midichan "0" # sustain "<0.2>"
+  let pfbass1gcd =  slow 24  $ n "[[c3 ds4 g4] [c3 ds4 g4] [c3 ds4 g4][c3 ds4 g4] [c3 ds4 g4] [c3 ds4 g4][c3 ds4 g4] [c3 ds4 g4][g4 as4 c4][g4 as4 c4][g4 as4 c4][g4 as4 c4][g4 as4 c4][g4 as4 c4][g4 as4 c4][g4 as4 c4][g3]*3 ~ [g3]*3 ~ [g3]*3 ~ [g3]*3 ~ [c3]*3 ~[c3]*3 ~[d3]*3 ~[d3]*3 ~]" # s "supersaw" # sustain "0.2" # gain 1
+  let pfbass3g =  slow 1  $ struct ("1 0 1 1") $ n "g3*3 as3" # s "midi" # midichan "1" # sustain "1.5 0.8 0.8"
+  -- perc
+  let pfperc1 = slow 1  $ s "~cp" # hpf 1 # pan "1 0,5 1" # gain (range 0.8 0.8 $ cF 2 "25") # delay (range 0 1 $ cF 2 "25") # delayfeedback (range 0.5 1 $ cF 2 "25") # orbit 1  #cut 1 # hpf  888
+  -- -- samples (best 0.35 end 0.65)
+  let pfshort = slow 8  $ chop 8 $ s (samples "mfxx:21*4" (irand 8)) # speed "<1 1 1 0.9>" # cut 1 #begin 1 # end 0 # hpf 0 # gain (range 0 1.5 $ cF 2 "12") # room 0.3 # orbit 3
+  -- -- scene
+  let pf1 = stack [pfloop1]  -- basic loop mit pfbass1
+  -- let pf1a = stack [pfloop2, pfbass1g]  -- basic loop mit Low Pass Filter
+  -- let pfss = stack [pfshort]  -- diamond sample up
+  -- let pf2 = stack [pfbass2cd, pfloop1]  -- basic loop up
+  -- let pf3 = stack [pfbass3g, pfloop2]  -- basic loop up
+  -- let pf12 = stack [pfloop1break] -- revers loop short "ds:2"
+  -- let pf98 = stack [pfperc1]
+  -- let pf99 = stack [pfperc2]
+  -- plays
+  d1 $ stack [pfbass1, pfloop1, pfperc1]
+
+-- to do: slow 24 bass mit slow 8 abwechseln lassen!!
+
+hush

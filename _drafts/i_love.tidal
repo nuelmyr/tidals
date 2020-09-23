@@ -1,0 +1,88 @@
+-- volca pattern 1
+-- midiclock
+p "midiclock" $ midicmd "midiClock*48" # s "midi" # nudge 0.17 # cps (72/120)
+
+p "midictl" $ midicmd "start/4" # s "midi" # nudge 0.17
+
+-- volca pattern 1
+
+hush
+
+-- mfx control = 24
+d1 $ slow 1 $ chop 16 $ s "[mfx:3]"
+# n (irand 16)
+# speed "1" # cut 1 # hpf 1555
+# lpf (range 1 2222 $ cF 2 "24")
+# gain 1
+
+-- bass control 12 basis n = c
+d2 $ fast 1
+$ every 2 degrade $ every 4 (jux (rev)) $ rot "<0 0 1 3>"
+$ note "[c3]*4"
+# "supersaw"
+|+| up "[0 3 5 1]/4" # attack 0.3
+# gain (range 0.6 0.8 $ cF 2 "12")
+# cutoff (range 0 2222 $ cF 2 "12") # resonance (range 0.1 0.15 $ cF 2 "12")
+
+-- bass slow half tempo CONTROL 12
+d2 $ slow 4
+$ note "[[~c3]*4 [~f2]*4]" # "supersaw"
+# gain (range 0.6 0.8 $ cF 2 "12")
+# cutoff (range 0 2222 $ cF 2 "12") # resonance (range 0.1 0.15 $ cF 2 "12")
+
+-- bass doppeltes tempo CONTROL 12
+d2 $ slow 8
+$ note "[~c3]*8 [~f2]*8 [~gs2]*8 [~g2]*8" # "supersaw"
+# gain 0.8
+# cutoff (range 0 2222 $ cF 2 "12") # resonance (range 0.1 0.15 $ cF 2 "12")
+
+
+
+-- synth control 34
+d12 $ fast 2
+$ every 2 degrade
+$ every 4 (jux (rev))
+$ stut 4 0.5 0.5
+$ note "1"
+# s "superpwm" # gain 0.6 |*| up "[0 3 5 1]/4(3,8)"
+# cutoff (range 1 2222 $ cF 2 "34")
+# resonance (range 0.1 0.15 $ cF 2 "34")
+# sustain (range 0.1 0.25 $ cF 2 "34") # room (range 0.2 1.8 $ cF 2 "34")
+# sz 0.6 # orbit 0
+
+-- synth control 35
+d13 $ fast 2
+$ stut 4 0.5 0.5
+$ every 2 degrade
+$ every 4 (jux (rev))
+-- $ rot "<0 0 1 3>"
+$ n "c5 c5 ds5"
+# s "supersaw"
+-- control 35
+# gain (range 0.6 0.7 $ cF 2 "35") # hpf (range 2222 111 $ cF 2 "35")
+# lpf (range 1 3333 $ cF 2 "35") # resonance (range 0.1 0.15 $ cF 2 "35")
+# sustain (range 0.1 0.3 $ cF 2 "35")
+# room (range 0.2 1.8 $ cF 2 "35")
+# sz 0.6 # orbit 0 |*| up "[0 3 5 7 8 10]/8"
+
+-- synth pad slow control 36 - in case of illness
+-- d14 $ stut 4 0.5 0.5 $ slow 2 $ n "c5 c5 c5 [c5~as3]"
+-- # s "supersaw" # hpf 333 # gain (range 0.4 0.3 $ cF 1 "36") # cutoff (range 1 2222 $ cF 2 "36") # sustain 1.5
+-- # resonance (range 0.1 0.3 $ cF 2 "36") # coarse 4
+-- |*| up "[12 15 5 8]/4"
+
+---------------------------------------------------------
+-- "[ms2t:2 ~ ms2t:2]*2(5,19,6)"
+-- sample control 14 (end 0.28 (ilove) 0.55 (live) 1 full 0.56-1 coding)
+-- $ every "[64]" degrade $ every 2 (jux (rev)) $ chop 4
+d8 $ slow 1 $ every "[4]" degrade $ stut 4 0.5 0.5 $ sound "[ms2t:2 ~ ms2t:2]*1"
+# begin 0 # end 1 # cut "1 0"
+# speed "0.94"
+# hpf 666
+# pan rand
+# gain (range 0 1.5 $ cF 2 "14")
+# lpf (range 1 2222 $ cF 2 "24")
+
+hush
+
+d8 silence

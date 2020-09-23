@@ -1,0 +1,28 @@
+do
+let a1 = 0 -- bd gain 0.8
+let a2 = 0 -- drum loop gain 0.8
+let b = 0.5 -- perc gain 0.9
+let c = 0-- bass gain 0.6
+let d = 0 -- synth gain 0.8
+let e = 0-- bar sample gain 1.2
+let f = 0 -- pat
+setcps (130/120)
+ -- bassdrum CONTROL 24
+d1 $ slow 2 $ s "[bd(3,8?)]" # cut 0 # lpf (range 444 2222 $ slow "8 4 16" sine)  # gain a1
+-- perc CONTROL 25 -- stut
+d2 $ slow 1 $ every 4 (degradeBy 0.7) $ every 4 (stut 4 0.25 0.25) $ s (samples "[msg](3,8)" (irand 8)) # cut "0" # pan "[0.3 0.7]*4" # room (range 0 1 $ cF 2 "25") # sz (range 0 1 $ cF 2 "25") # gain b
+-- bass CONTROL 12
+d4 $ slow 2 $ every 4 (stut 4 0.25 0.25)  $ every 2 (# up (range 0 2 $ slow 8 saw)) $ every 6 (iter 4) $ every 2 (fast "1 1") $ note "[[c2@2 ~c2@2]~ [c2@1 ds2@1 c2@1 c2@1]]" # s "supersaw" # gain c  # octave 3 # voice (range 0.8 0.2 $ cF 2 "12") # sustain 0.15
+-- synth CONTROL 11 -- # up (range  (0) 9 $ slow 8 sine) -- accelerate max 1 --- detune max 1
+d5 $ slow 2 $ stut 4 0.5 0.25  $ every 2 (fast "0 1") $ every 2 (degradeBy 0.5)  $ n (scale "minPent" " 0 .. 5")   #  s "superreese" # accelerate (range 0 0 $ slow 8 sine) # detune (range 0 0.1 $ slow 16 sine) # gain d
+-- bar sample manipulation CONTROL 33 -- up 2 oder 3
+d6 $ slow 4 $ every 2 (stut 4 0.5 0.25) $ every 4 (degradeBy 0.9) $ every 6 rev $ slice 16 "[2 4 6 8 2] [4 .. 6]*2" $ s "mbar"  # legato 1 # gain e # pan (range 0.3 0.7 $ slow 8 sine) # up 0 # resonance (range 0 1 $ slow 8 sine) # room (range 0 1 $ cF 2 "33") # sz (range 0 1 $ cF 2 "33") # orbit 1
+-- drum sample "[z130:8?/2](3,8?)/4?"
+d2 $ slow 4 $ chop 16 $ s "[z130:8/4]" # speed "<0.5>" # lpf 1555 # gain a2
+-- pad
+d7 $ slow 1 $ chop 1 $ s "[mfx:4/2]" # cut "1" # speed "<1 1 1 1 0.9 0.9>" # room 0.5 # sz 0.6 # orbit 1 # gain f
+
+
+
+
+hush

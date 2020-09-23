@@ -1,0 +1,42 @@
+-- rir 112bpm
+-- go intro 
+d1 $ slow "12" $ jux (rev) $ off 0.25 (hurry "0.1 0.4") $ hurry "0.1 0.2 0.6 1"  $ slice  "8" "[[8 0 0 ] 7 .. 1]*2"  $ s "[rir]" # legato 16 # squiz (range 0 3 $ slow 16 tri) # comb (range 0.5 1.5 $ slow rand sine) # delay 0.7 # delaytime "<e>"  # delayfeedback 0.5 # gain "0.8" # gain 1 # cps (112/120)
+
+--------------------------------------------------------------------------------------------------------------------
+-- go slow
+d1 $ slow 8 $ iter 4 $ off 0.125 (hurry "[0.5]") $ slice 8 "[3 . 4 . 6 7 . ~~ ] [0~~~]" $ s "[rir]"  # legato 4 # delay 0.7 # gain 1 # cps (112/120)
+
+-- bass go slow
+d3  $ slow 1 $ layer [id, (#octave 4)] $ n ("[f5 . <f6 ds5~~>]*2" |-24 |+ "[0!7 3]/8" ) # s "[superpwm]" # lpq (range 0.1 0.2 $ slow 4 square) # lpf (range 222 2222 $ slow 6 sine) # sustain (range 0.3 0.3 $ slow rand sine)  # gain 1.1 # cps (112/120)
+
+-- drum
+d2 $ s "[[cpu ~ [cpu cpu?]~], [[~808:3*2?0.7]*1], [~cpu:4*2]] " # hpf 88 # room 0.4 # sz "0.6" # orbit 1 # shape 0.5 # gain 1.4
+unmute 2
+
+--------------------------------------------------------------------------------------------------------------------
+-- go crazy 
+d1 $ slow 4  $ slice  "8" "[0 0 0 0 7 6 5 0](5,8) "  $ s "[rir*8]?0.1" # legato "[8 32 44 16]" # speed ("0.5" |+ rand) 
+# delay 0.7 # delaytime "q"  # delayfeedback 0.5  
+# djf (range 0.2 0.8 $ slow 8 sine) 
+# cps (112/120)
+# gain 0.3
+
+-- bass go crazy
+d3  $ fast 2 $ n ("[a5!2[c5 c5] ~]" |-24 |+ "<0 0 0 -2>" ) # s "[supersaw]?0.7" # lpq (range 0.1 0.2 $ slow 4 square) # lpf (range 444 2222 $ slow 6 sine) # sustain (range 0.1 0.3 $ slow rand sine)  # gain 1.1
+mute 3
+
+-- hoop dance
+d11  $ gap "2 8" $  s "[rir:1]/4" # begin 0.1 # end 0.5 # cut 1 # hpf 333  # shape 0.8 # gain 1 # cps (112/120)
+
+
+--------------------------------------------------------------------------------------------------------------------
+-- go melody
+d1 $ slow 4  $ slice  "8" "[0 4 3 1]"  $ s "[rir]" # legato 16 # speed ("0.5" |+ perlin) 
+# delay 0.7 # delaytime "h"  # delayfeedback 0.5  
+# djf (range 0.2 0.9 $ slow 4 sine) 
+# cps (112/120)
+# gain 1 
+
+-- bass go melody
+d3  $ n ("[cf6 ds5 [f5 g5]]" |-24 |+ "0 0 0 3" ) # s "[supersaw]" # lpq (range 0.1 0.2 $ slow 4 sine) # lpf (range 444 2222 $ slow 6 sine) # sustain 0.3  # gain 0.7
+

@@ -1,0 +1,35 @@
+-- midiclock
+p "midiclock" $ midicmd "midiClock*48" # s "midi" # nudge 0.17 # cps (120/120)
+
+p "midictl" $ midicmd "start/4" # s "midi" # nudge 0.17
+
+hush
+
+-- bass doppeltes tempo CONTROL 12
+
+
+d16 $ slow 4 $ note "[c3*2](9,12,0)" # s "midi" # midichan 0 |+| up "[3 ~ 5 0]"
+
+d1 $ stut 4 0.5 0.5 $ every 2 (slow 2) $ struct (every 3 inv "t f t*2 f")
+$ sound "moh" # speed 0 # gain "[0.4 0.4 0.6]" # sustain 0.1
+
+d2 $ struct ("1 0 1 0. 1") $ s "808bd:4" # gain 1 # hpf 88
+
+d3 $ struct ("[0 0 1 0]*1") $ s "cp" # gain 0.7 # hpf 99
+
+d4 $ struct ("0 1 0 1") $ s "moh" # gain 0.5 # hpf 99 # speed 0.8
+
+d13 $ stut 4 0.25 0.25 $ every 2 degrade $ slow 2 $ s "ms2t:4(5,16,9)" # gain "0.6" # hpf 444 # cut "[0 1 -1]"
+
+hush
+
+-- padsequenz pump CONTROL GAIN 11
+-- $ chop 16
+d9 $ every 8 degrade $ loopAt 4 $ s "[cmin:1]*2"
+# gain 0.7
+# lpf 1555
+# hpf (range 1333 222 $ slow 16 (sine))
+# cut "1 -1 0" # speed "<1 0.9>"
+
+d12 $ stut 4 0.25 0.5 $ every 1 degrade $ slow 3 $ append (n "[[c5 c5]~ds5~ f g as~]*4") (n "[c5 ~ds5~ as g f~]*2 ")
+# "superpwm" # gain "0" # legato 1 # sustain "0.2" # resonance "0.1 0.2" # cutoff (range 222 2222 $ slow 8 sine)

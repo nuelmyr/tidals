@@ -1,0 +1,4 @@
+-----------------------------------------------------------atari game song
+xfade 1 $ off "<q?0.1 0>" (|+ n "12") $ every 16 (ply "<2 4>")$ every 4 rev $ n "[2*2 . <{7 9?0.05 5}>]/2" # s "psin"  # legato 1 # gain 0.65 # octave 3  # hpf 111 # sustain 0.4 # cps (100/120)
+
+d3 $ slow 3 $ gap "2 1 3" $ off "q" (|+ n "12") $ n "[0 5 8 10] [0 5 8 5] [~]" # s "[superchip]" # accelerate 0.01 # cut 1 # gain 0.8 # cps (100/120)

@@ -1,0 +1,46 @@
+-- samples SuperDirt
+
+hush
+
+d1 $ slow 2 $ "ds:2" # cps (80/120)
+-- 0=drone atmo / 2=dubstep drum / 3=dubstep drum heavy / 6=fx fight
+
+hit - game, noise, stör mix
+
+d1 $ slow 2 $ "jungbass:10" # cps (100/120)
+-- 5 bis 10 subbass
+
+d1 $ slow 8 $ "mapo:1" # cut 1
+-- 0 you understand captain ... / 1 horror and moral terror
+
+d1 $ slow 8 $ "mast" # cut 1
+-- the eagle has landed
+
+metal - dünne metall drums kindersounds
+
+d1 $ slow 8 $ "mfx:4" # cut 1
+-- 4 verschiedene lang drones
+
+d1 $ slow 12 $ "mfxx*12" # cut 1 # irand 12
+-- 12 verschiedene short reverb flags
+
+d1 $ slow 8 $ "mfx:4" # cut 1
+-- 4 verschiedene lang drones
+
+ds - dubstep drums, bass, sounds
+
+house - house drumsshots sehr elecctro
+
+msg - elecctro-jungle plucks hawtin
+
+proc elecctro-noise perc acuphone-like
+
+psr - acuphone-like störgeräusche drums
+
+sid - game bleep, bass and kick
+
+sine - deep sine bass und hohe sinus töne sciencelike
+
+uxay - 52 leise perc samples eher dark und hawtin
+
+v - game sounds mit trockener kick
